@@ -24,7 +24,7 @@ class TweetsController < ApplicationController
 
     get "/tweets/:id" do
         @tweet = Tweet.find_by(id: params[:id])
-        if current_user.tweets.include?(@tweet)
+        if @tweet.user == current_user
             erb :"tweets/show"
         else
             redirect "/tweets"
