@@ -39,17 +39,29 @@ class UsersController < ApplicationController
     get "/logout" do
         if logged_in?
             erb :"users/logout"
-        else
             redirect "/login"
+        else
+            redirect "/"
         end
     end
 
     post "/logout" do
-        binding.pry
-        if params[:logout] == "Submit"
+        # binding.pry
+        if params[:logout] == "Logout"
             session.clear
-            redirect "/login"
+            redirect to "/login"
+        elsif params[:tweets] == "Return to Tweets"
+            redirect to "/tweets"
+        elsif params[:login] == "Please Log In"
+            redirect to "/login"
+        else
+            redirect to "/login"
         end
     end
 
+    get "/users/:slug" do
+        # binding.pry
+            @user = User.find_by_slug(params[:slug])
+            erb :"users/show"
+    end
 end

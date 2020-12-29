@@ -1,4 +1,9 @@
 <h1>Welcome, <%= current_user.username%></h1>
 <% @tweets.each do |tweet| %>
-<p><%= tweet.content %></p>
+<p><%= tweet.content %> 
+<% if current_user.tweets.include?(tweet) %>
+    <a href="tweets/<%= tweet.id%>/edit"> Edit this tweet</a>
+    <%end%>
+    </p>
 <% end %>
+<a href="/logout">Log Out?</a>
